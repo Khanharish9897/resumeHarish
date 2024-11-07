@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<style>
+    .container{
+        width: auto;
+        
+        height: auto;
+        display: inline-block;
+        padding: 20px 50px;
+        background-color: green;
+}
+.secondClass{
+    background-color: aqua;
+    padding: 50px 20px;
+    border: 5px black solid;
+}
+</style>    
+<div class="container">
+    Harish khan
+</div><br>
+<button class="button">
+    Add class
+</button>
+<button class="buttonremove">
+    remove class
+</button>
+<script>
+    const btnContainer = document.querySelector('button');
+    const divContainer = document.querySelector('.container');
+    const btnContainer2 = document.querySelector('.buttonremove');
+ 
+    btnContainer.addEventListener('click',function(e){
+        console.log('Button is pressed');
+     divContainer.classList.add('secondClass');
+    });
+    btnContainer2.addEventListener('click',function(e){
+        console.log('Button2  is pressed');
+     divContainer.classList.remove('secondClass');
+    });
+     
+</script>
+</body>
+</html>

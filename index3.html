@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal with Overlay</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Overlay Fade-In Animation */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .overlay.visible {
+      opacity: 1;
+    }
+
+    /* Modal Styling */
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 400px;
+      max-width: 90%;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: opacity 0.4s, transform 0.4s;
+    }
+
+    .modal.visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .modal__content {
+      text-align: center;
+    }
+
+    .btn--close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Button to Open Modal -->
+  <button class="btn btn--show-modal">Open Modal</button>
+
+  <!-- Modal Structure -->
+  <div class="modal hidden">
+    <div class="modal__content">
+      <span class="btn--close-modal">&times;</span>
+      <h2>Modal Title</h2>
+      <p>This is a simple modal with overlay effect.</p>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay hidden"></div>
+
+  <script>
+    'use strict';
+
+    const btnOpenModal = document.querySelector('.btn--show-modal');
+    const btnCloseModal = document.querySelector('.btn--close-modal');
+    const modal = document.querySelector('.modal');
+    const overlay = document.querySelector('.overlay');
+
+    // Function to open the modal
+    const openModal = function () {
+      modal.classList.remove('hidden');
+      overlay.classList.add('visible'); // Add 'visible' to trigger fade-in effect
+      modal.classList.add('visible');  // Add 'visible' to trigger modal animation
+    };
+
+    // Function to close the modal
+    const closeModal = function () {
+      modal.classList.remove('visible');
+      overlay.classList.remove('visible'); // Remove 'visible' to trigger fade-out effect
+      modal.classList.add('hidden');
+      overlay.classList.add('hidden');
+    };
+
+    // Open modal when the button is clicked
+    btnOpenModal.addEventListener('click', openModal);
+
+    // Close modal when the close button or overlay is clicked
+    btnCloseModal.addEventListener('click', closeModal);
+    overlay.addEventListener('click', closeModal);
+
+    // Close modal when the 'Escape' key is pressed
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>
